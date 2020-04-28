@@ -28,14 +28,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.luceafarul.quizfitter.R;
 import com.luceafarul.quizfitter.models.Answer;
-import com.luceafarul.quizfitter.models.Challenge;
+import com.luceafarul.quizfitter.models.Match;
 import com.luceafarul.quizfitter.models.Question;
 import com.luceafarul.quizfitter.repositories.room.operations.GetAnswersAsync;
 import com.luceafarul.quizfitter.repositories.room.operations.GetQuestionAsync;
 import com.luceafarul.quizfitter.view.HomeActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -54,7 +56,7 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
     List<Answer> answers = new ArrayList<>();
     View parentView;
     Question question;
-    Challenge challenge;
+    Match match;
     DatabaseReference matchesRef;
     String idPlayer1;
     String idPlayer2;
@@ -85,10 +87,10 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
         getCurrentMatchData(new QuizFragment.OnDataReceiveCallback() {
             @Override
             public void onDataReceived() {
-                Log.d("QuestionCardFragment:getCurrentMatchData", challenge.opponentScore + " " + challenge.starterScore);
-                totalScore = challenge.getScore(idPlayer1);
-                tvScore1.setText(String.valueOf(challenge.getScore(idPlayer1)));
-                tvScore2.setText(String.valueOf(challenge.getScore(idPlayer2)));
+                Log.d("QuestionCardFragment:getCurrentMatchData", match.opponentScore + " " + match.starterScore);
+                totalScore = match.getScoreByUser(idPlayer1);
+                tvScore1.setText(String.valueOf(match.getScoreByUser(idPlayer1)));
+                tvScore2.setText(String.valueOf(match.getScoreByUser(idPlayer2)));
 
                 getNextQuestion();
             }
@@ -241,11 +243,16 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
 
             public void onFinish() {
                 if (isQuestionAnswered) {
-                    if (challenge.starter.equals(FirebaseAuth.getInstance().getUid())) {
-                        matchesRef.child("starterScore").setValue(totalScore + questionScore);
+                    int updatedScore = totalScore + questionScore;
+                    Map<String, Object> matchScoreUpdates = new HashMap<>();
+                    if (match.starter.equals(FirebaseAuth.getInstance().getUid())) {
+                        matchScoreUpdates.put("starterScore", updatedScore);
+//                        matchesRef.child("starterScore").setValue(totalScore + questionScore);
                     } else {
-                        matchesRef.child("opponentScore").setValue(totalScore + questionScore);
+                        matchScoreUpdates.put("opponentScore", updatedScore);
+//                        matchesRef.child("opponentScore").setValue(totalScore + questionScore);
                     }
+                    matchesRef.updateChildren(matchScoreUpdates);
                 }
                 if (questionNumber == 5) {
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
@@ -258,7 +265,7 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
     }
 
     private void performTransition() {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = getParentFragmentManager();
         Fragment currentQuestionFragment = fragmentManager.findFragmentById(R.id.fragment_container);
         Fragment nextQuestionFragment = new QuestionCardFragment();
 
@@ -294,8 +301,10 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                challenge = dataSnapshot.getValue(Challenge.class);
-                callback.onDataReceived();
+                match = dataSnapshot.getValue(Match.class);
+                if (match != null) {
+                    callback.onDataReceived();
+                }
             }
 
             @Override

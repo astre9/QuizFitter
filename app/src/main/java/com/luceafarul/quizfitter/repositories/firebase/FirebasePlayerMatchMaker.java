@@ -1,6 +1,5 @@
 package com.luceafarul.quizfitter.repositories.firebase;
 
-import android.net.http.DelegatingSSLSession;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -15,11 +14,12 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.luceafarul.quizfitter.models.Challenge;
+import com.luceafarul.quizfitter.models.Match;
 
 public class FirebasePlayerMatchMaker {
 
     public static final String QUEUE_REF = "/queues";
-    public static final String MATCHES_REF = "/queues";
+    public static final String MATCHES_REF = "/matches";
 
     private DatabaseReference userQueueRef;
     private OnMatchMadeCallback onFinished;
@@ -97,6 +97,7 @@ public class FirebasePlayerMatchMaker {
 
         private Challenge selectedChallenge = null;
         private final OnFailCallback failCallback;
+        private DatabaseReference matchesRef;
 
         protected Matcher(@Nullable OnFailCallback failCallback) {
             this.failCallback = failCallback;
@@ -113,9 +114,11 @@ public class FirebasePlayerMatchMaker {
                     selectedChallenge.setOpponent(postedChallenge.starter);
                     opponent = selectedChallenge.opponent;
                     starter = selectedChallenge.starter;
-                    postedChallenge.setOpponent(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    challengeData.setValue(postedChallenge);
-//                    challengeData.setValue(null);
+//                    postedChallenge.setOpponent(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    matchesRef = FirebaseDatabase.getInstance().getReference(selectedChallenge.gameRef);
+                    matchesRef.child("opponent").setValue(starter);
+                    challengeData.child("opponent").setValue(starter);
+
                     Log.d("MatchMaker.Matcher", "From opponent user: Matched " + starter + " with " + opponent);
                     return Transaction.success(mutableData);
                 }
@@ -150,21 +153,25 @@ public class FirebasePlayerMatchMaker {
     protected class SelfChallengeManager implements Transaction.Handler, ValueEventListener {
 
         protected final Challenge publishedChallenge;
+        protected final Match publishedMatch;
         protected DatabaseReference challengeRef;
-        protected DatabaseReference matchRef;
+        protected DatabaseReference matchesRef;
 
         protected SelfChallengeManager() {
             publishedChallenge = new Challenge(FirebaseAuth.getInstance().getCurrentUser().getUid(), null);
+            publishedMatch = new Match(FirebaseAuth.getInstance().getCurrentUser().getUid());
         }
 
         @NonNull
         @Override
         public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-            matchRef = FirebaseDatabase.getInstance().getReference()
+            matchesRef = FirebaseDatabase.getInstance().getReference()
                     .child(MATCHES_REF)
                     .push();
-            publishedChallenge.gameRef = MATCHES_REF + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid();
+            publishedChallenge.gameRef = MATCHES_REF + "/" + matchesRef.getKey();
             matchPath = publishedChallenge.gameRef;
+
+            matchesRef.setValue(publishedMatch);
 
             challengeRef = FirebaseDatabase.getInstance().getReference(QUEUE_REF + "/" + FirebaseAuth.getInstance().getUid());
             challengeRef.setValue(publishedChallenge);
@@ -186,7 +193,7 @@ public class FirebasePlayerMatchMaker {
                     starter = FirebaseAuth.getInstance().getUid();
                     opponent = acceptedChallenge.opponent;
                     challengeRef = null;
-                    matchRef = null;
+                    matchesRef = null;
                     selfChallengeManager = null;
                     Log.d("MatchMaker.Matcher", "From starter user: Matched " + starter + " with " + opponent);
                     onMatchFound(true);
@@ -228,7 +235,7 @@ public class FirebasePlayerMatchMaker {
         public void onComplete(@Nullable DatabaseError databaseError, boolean b,
                                @Nullable DataSnapshot dataSnapshot) {
             mChallenger.challengeRef = null;
-            final DatabaseReference gameRecordRef = mChallenger.matchRef;
+            final DatabaseReference gameRecordRef = mChallenger.matchesRef;
 
             if (gameRecordRef != null) {
                 gameRecordRef.setValue(null);

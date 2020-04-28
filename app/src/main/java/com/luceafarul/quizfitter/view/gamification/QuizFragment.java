@@ -94,7 +94,7 @@ public class QuizFragment extends Fragment {
     }
 
     private void changeFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
