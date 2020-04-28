@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "741375553170",
+    "firebase_url": "https://quizfitter.firebaseio.com",
+    "project_id": "quizfitter",
+    "storage_bucket": "quizfitter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741375553170:android:9841ba0b055be4be00804b",
+        "android_client_info": {
+          "package_name": "com.example.mvplogin2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741375553170-2h95843qhnoosdc0tt30b4pgpg8op8dt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mvplogin2",
+            "certificate_hash": "152f1b8269141f37a34dde82eda3dc03060ddfb0"
+          }
+        },
+        {
+          "client_id": "741375553170-6mkfoslgm2bfeefpgo0grsfc406lom6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWg3RgEKAAGkymGYPw3-oWBJeaKh1s0Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741375553170-6mkfoslgm2bfeefpgo0grsfc406lom6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741375553170:android:b13224c9ef9e237500804b",
+        "android_client_info": {
+          "package_name": "com.example.quizfitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741375553170-mjn8c69novkq7hqcts7eglcqqftmd5ac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quizfitter",
+            "certificate_hash": "152f1b8269141f37a34dde82eda3dc03060ddfb0"
+          }
+        },
+        {
+          "client_id": "741375553170-6mkfoslgm2bfeefpgo0grsfc406lom6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWg3RgEKAAGkymGYPw3-oWBJeaKh1s0Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741375553170-6mkfoslgm2bfeefpgo0grsfc406lom6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741375553170:android:15f98cdf57993c9100804b",
+        "android_client_info": {
+          "package_name": "com.luceafarul.quizfitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741375553170-6mkfoslgm2bfeefpgo0grsfc406lom6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWg3RgEKAAGkymGYPw3-oWBJeaKh1s0Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741375553170-6mkfoslgm2bfeefpgo0grsfc406lom6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

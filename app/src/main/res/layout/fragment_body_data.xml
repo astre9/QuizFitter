@@ -1,0 +1,72 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.luceafarul.quizfitter.view.tracking.AddBodyDataFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/llAddData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilMail"
+            style="@style/DefaultTextInputLayout"
+            android:layout_marginTop="32dp"
+            android:hint="@string/date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDate"
+                style="@style/DefaultTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilWeight"
+            style="@style/DefaultTextInputLayout"
+            android:layout_marginTop="32dp"
+            android:hint="@string/weight">
+
+            <EditText
+                android:id="@+id/etWeight"
+                style="@style/DefaultTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBF"
+            style="@style/DefaultTextInputLayout"
+            android:layout_marginTop="32dp"
+            android:hint="@string/bodyfat">
+
+            <EditText
+                android:id="@+id/etBF"
+                style="@style/DefaultTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/DefaultMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textColor="@color/colorPrimaryVariant" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/CancelMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
+
+
+    </LinearLayout>
+
+</FrameLayout>
