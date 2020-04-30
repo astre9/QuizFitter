@@ -7,14 +7,14 @@ public class Challenge {
 
     public String starter;
     public String opponent;
-    public String gameRef;
+    public String matchRef;
 
     public Challenge() {
         // required by Firebase database
     }
 
-    public Challenge(String starter, String gameRef) {
-        this.gameRef = gameRef;
+    public Challenge(String starter, String matchRef) {
+        this.matchRef = matchRef;
         this.starter = starter;
     }
 
@@ -27,7 +27,7 @@ public class Challenge {
         return "Challenge{" +
                 "starter='" + starter + '\'' +
                 ", opponent='" + opponent + '\'' +
-                ", gameRef='" + gameRef + '\'' +
+                ", gameRef='" + matchRef + '\'' +
                 '}';
     }
 }

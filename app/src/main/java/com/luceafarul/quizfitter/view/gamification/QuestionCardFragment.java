@@ -64,7 +64,7 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
     boolean isQuestionAnswered;
     int questionNumber;
     int totalScore = 0;
-    int questionScore = 0;
+    int questionScore = 10;
     int questionTime = 0;
 
     public QuestionCardFragment() {
@@ -235,7 +235,7 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
 
             public void onTick(long millisUntilFinished) {
                 if (!isQuestionAnswered) {
-                    questionScore += 1;
+                    questionScore -= 1;
                 }
                 questionTime++;
                 pbQuestionTimer.setProgress(10 * questionTime, true);
@@ -247,10 +247,8 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
                     Map<String, Object> matchScoreUpdates = new HashMap<>();
                     if (match.starter.equals(FirebaseAuth.getInstance().getUid())) {
                         matchScoreUpdates.put("starterScore", updatedScore);
-//                        matchesRef.child("starterScore").setValue(totalScore + questionScore);
                     } else {
                         matchScoreUpdates.put("opponentScore", updatedScore);
-//                        matchesRef.child("opponentScore").setValue(totalScore + questionScore);
                     }
                     matchesRef.updateChildren(matchScoreUpdates);
                 }
@@ -258,6 +256,7 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);
                 } else {
+                    FirebaseDatabase.getInstance().getReference("queues/" + match.starter).setValue(null);
                     performTransition();
                 }
             }

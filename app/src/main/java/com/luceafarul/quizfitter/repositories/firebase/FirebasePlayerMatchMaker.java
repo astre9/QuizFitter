@@ -110,15 +110,15 @@ public class FirebasePlayerMatchMaker {
                 final Challenge postedChallenge = challengeData.getValue(Challenge.class);
 
                 if (isChallengeCompat(postedChallenge)) {
-                    selectedChallenge = new Challenge(FirebaseAuth.getInstance().getCurrentUser().getUid(), postedChallenge.gameRef);
+                    selectedChallenge = new Challenge(FirebaseAuth.getInstance().getCurrentUser().getUid(), postedChallenge.matchRef);
                     selectedChallenge.setOpponent(postedChallenge.starter);
                     opponent = selectedChallenge.opponent;
                     starter = selectedChallenge.starter;
 //                    postedChallenge.setOpponent(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    matchesRef = FirebaseDatabase.getInstance().getReference(selectedChallenge.gameRef);
+                    matchesRef = FirebaseDatabase.getInstance().getReference(selectedChallenge.matchRef);
                     matchesRef.child("opponent").setValue(starter);
                     challengeData.child("opponent").setValue(starter);
-
+//                    challengeData.setValue(null);
                     Log.d("MatchMaker.Matcher", "From opponent user: Matched " + starter + " with " + opponent);
                     return Transaction.success(mutableData);
                 }
@@ -133,7 +133,7 @@ public class FirebasePlayerMatchMaker {
             if (selectedChallenge != null) {
                 starter = selectedChallenge.starter;
                 opponent = selectedChallenge.opponent;
-                matchPath = selectedChallenge.gameRef;
+                matchPath = selectedChallenge.matchRef;
                 Log.d("MatchMaker.Matcher", "Found match, onComplete");
                 onMatchFound(false);
             } else if (failCallback != null) {
@@ -154,7 +154,7 @@ public class FirebasePlayerMatchMaker {
 
         protected final Challenge publishedChallenge;
         protected final Match publishedMatch;
-        protected DatabaseReference challengeRef;
+        protected DatabaseReference queuesRef;
         protected DatabaseReference matchesRef;
 
         protected SelfChallengeManager() {
@@ -168,14 +168,14 @@ public class FirebasePlayerMatchMaker {
             matchesRef = FirebaseDatabase.getInstance().getReference()
                     .child(MATCHES_REF)
                     .push();
-            publishedChallenge.gameRef = MATCHES_REF + "/" + matchesRef.getKey();
-            matchPath = publishedChallenge.gameRef;
+            publishedChallenge.matchRef = MATCHES_REF + "/" + matchesRef.getKey();
+            matchPath = publishedChallenge.matchRef;
 
             matchesRef.setValue(publishedMatch);
 
-            challengeRef = FirebaseDatabase.getInstance().getReference(QUEUE_REF + "/" + FirebaseAuth.getInstance().getUid());
-            challengeRef.setValue(publishedChallenge);
-            challengeRef.addValueEventListener(this);
+            queuesRef = FirebaseDatabase.getInstance().getReference(QUEUE_REF + "/" + FirebaseAuth.getInstance().getUid());
+            queuesRef.setValue(publishedChallenge);
+            queuesRef.addValueEventListener(this);
 
             return Transaction.success(mutableData);
         }
@@ -192,7 +192,7 @@ public class FirebasePlayerMatchMaker {
                 if (acceptedChallenge.opponent != null && acceptedChallenge.starter.equals(FirebaseAuth.getInstance().getUid())) {
                     starter = FirebaseAuth.getInstance().getUid();
                     opponent = acceptedChallenge.opponent;
-                    challengeRef = null;
+                    queuesRef = null;
                     matchesRef = null;
                     selfChallengeManager = null;
                     Log.d("MatchMaker.Matcher", "From starter user: Matched " + starter + " with " + opponent);
@@ -209,18 +209,18 @@ public class FirebasePlayerMatchMaker {
 
     protected class SelfChallengeCanceller implements Transaction.Handler {
 
-        private final SelfChallengeManager mChallenger;
+        private final SelfChallengeManager challengeManager;
 
         private SelfChallengeCanceller(SelfChallengeManager challenger) {
             Log.d("MatchMaker.Cancel", "Opened cancel request");
-            mChallenger = challenger;
+            challengeManager = challenger;
         }
 
         @NonNull
         @Override
         public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-            mChallenger.challengeRef.removeEventListener(mChallenger);
-            final String challengeKey = mChallenger.challengeRef.getKey();
+            challengeManager.queuesRef.removeEventListener(challengeManager);
+            final String challengeKey = challengeManager.queuesRef.getKey();
 
             for (MutableData challengeNode : mutableData.getChildren()) {
                 if (challengeNode.getKey().contentEquals(challengeKey)) {
@@ -234,8 +234,8 @@ public class FirebasePlayerMatchMaker {
         @Override
         public void onComplete(@Nullable DatabaseError databaseError, boolean b,
                                @Nullable DataSnapshot dataSnapshot) {
-            mChallenger.challengeRef = null;
-            final DatabaseReference gameRecordRef = mChallenger.matchesRef;
+            challengeManager.queuesRef = null;
+            final DatabaseReference gameRecordRef = challengeManager.matchesRef;
 
             if (gameRecordRef != null) {
                 gameRecordRef.setValue(null);
