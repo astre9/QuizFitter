@@ -1,17 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/colorPrimary" />
-
-    <item android:top="100dp">
-        <bitmap
-            android:gravity="top"
-            android:src="@drawable/quiz_fitter" />
-    </item>
-
-    <item
-        android:width="300dp"
-        android:height="200dp"
-        android:drawable="@drawable/ic_app_loading_svg"
-        android:gravity="center"
-        android:top="300dp" />
+    <item android:drawable="@drawable/splash_screen_pattern" />
 </layer-list>

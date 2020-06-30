@@ -21,7 +21,7 @@ public class ClassifyExercise extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... filenames) {
         request = new Request.Builder()
-                .url("http://192.168.100.5:8000/classify?image_name=" + filenames[0])
+                .url("http://192.168.56.1:8000/classify?image_name=" + filenames[0])
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, filenames[0]))
                 .build();
         try {

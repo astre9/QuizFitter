@@ -2,6 +2,7 @@ package com.luceafarul.quizfitter.view.classification;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -12,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler;
+import com.google.android.material.card.MaterialCardView;
 import com.luceafarul.quizfitter.R;
 
 import java.io.File;
@@ -165,24 +168,31 @@ public class CameraActivity extends AppCompatActivity {
                 }
         );
         transferListener = new TransferListener() {
+            @SuppressLint("StaticFieldLeak")
             @Override
             public void onStateChanged(int id, TransferState state) {
                 if (state.equals(TransferState.COMPLETED)) {
                     //Success
                     Log.d("Succes aws upload", "Miau");
                     new ClassifyExercise() {
+                        @SuppressLint("StaticFieldLeak")
                         @Override
                         protected void onPostExecute(String s) {
                             super.onPostExecute(s);
                             try {
-                                JSONObject jsonObject = new JSONObject(s);
-                                String exerciseName = jsonObject.getString("exercise");
-                                String imagePath = jsonObject.getString("image_name");
-                                Intent intent = new Intent(CameraActivity.this, ClassificationResultsActivity.class);
-                                intent.putExtra("exercise", exerciseName);
-                                intent.putExtra("imageName", imagePath);
-                                startActivity(intent);
-                                // Toast.makeText(CameraActivity.this, exerciseName, Toast.LENGTH_LONG).show();
+                                if (s != null) {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String exerciseName = jsonObject.getString("exercise");
+                                    String imagePath = jsonObject.getString("image_name");
+                                    Intent intent = new Intent(CameraActivity.this, ClassificationResultsActivity.class);
+                                    intent.putExtra("exercise", exerciseName);
+                                    intent.putExtra("imageName", imagePath);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(CameraActivity.this, HomeActivity.class);
+                                    startActivity(intent);
+                                    Toast.makeText(CameraActivity.this, "Couldn't connect to classification server!", Toast.LENGTH_LONG).show();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -192,7 +202,6 @@ public class CameraActivity extends AppCompatActivity {
                     //Failed
                     Log.d("Failed aws upload", "Failed");
                 }
-
             }
 
             @Override
@@ -210,14 +219,11 @@ public class CameraActivity extends AppCompatActivity {
 
     public void upload() {
         java.util.logging.Logger.getLogger("com.amazonaws").setLevel(java.util.logging.Level.FINEST);
-
-        // Initialize the Amazon Cognito credentials provider
         CognitoCachingCredentialsProvider credentials = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
                 "eu-central-1:18147915-97d7-4d0d-a899-4c7d3ad16f1a", // Identity pool ID
                 Regions.EU_CENTRAL_1 // Region
         );
-
         AmazonS3 s3 = new AmazonS3Client(credentials);
 
         final Handler handler = new Handler();
@@ -232,9 +238,9 @@ public class CameraActivity extends AppCompatActivity {
                             TransferNetworkLossHandler.getInstance(CameraActivity.this);
                             TransferUtility transferUtility = new TransferUtility(s3, getApplicationContext());
                             TransferObserver observer = transferUtility.upload(
-                                    "luceafarul-quizfitter-app",  //this is the bucket name on S3
-                                    "classification/" + filename, //this is the path and name
-                                    file//path to the file locally
+                                    "luceafarul-quizfitter-app",
+                                    "classification/" + filename,
+                                    file
                             );
 
                             observer.setTransferListener(transferListener);
@@ -248,7 +254,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void startLoading() {
-        LinearLayout llButtons = findViewById(R.id.llButtons);
+        MaterialCardView llButtons = findViewById(R.id.llButtons);
         LinearLayout llLoading = findViewById(R.id.llLoading);
         FrameLayout flCamera = findViewById(R.id.camera_preview);
         llLoading.setVisibility(View.VISIBLE);

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0d47a1</color>
-    <color name="colorPrimaryDark">#002171</color>
-    <color name="colorPrimaryLight">#5472d3</color>
-    <color name="colorAccent">#448AFF</color>
+    <color name="colorPrimary">#2f89fc</color>
+    <color name="colorPrimaryVariant">#3d6cb9</color>
+    <color name="colorSecondary">#63cdda</color>
+    <color name="colorSecondaryVariant">#3dc1d3</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorError">#c44569</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnError">#FFF</color>
+
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorPrimaryLight">#00fff0</color>
+    <color name="colorAccent">#03A9F4</color>
+
     <color name="colorDanger">#B00020</color>
     <color name="colorSuccess">#52BF0D</color>
-
-    <color name="colorPrimaryVariant">#FFF</color>
-    <color name="colorSecondaryVariant">#205DD6</color>
-    <color name="colorSurface">#FFF</color>
-    <color name="colorBackground">#FFF</color>
-    <color name="colorError">#B00020</color>
-    <color name="colorOnPrimary">#000</color>
-    <color name="colorOnSecondary">#000</color>
-    <color name="colorOnBackground">#FFF</color>
-    <color name="colorOnError">#FFF</color>
-    <color name="colorOnSurface">#3F51B5</color>
     <color name="scrimBackground">#000000</color>
     <color name="colorPrimaryTextDefaultMaterialLight">#7B161515</color>
     <color name="colorSecondaryTextDefaultMaterialLight">#7B212020</color>

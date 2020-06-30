@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.luceafarul.quizfitter.models.RoomUser;
+import com.luceafarul.quizfitter.model.RoomUser;
 import com.luceafarul.quizfitter.repositories.room.DataBase;
 
 public class InsertUserAsync extends AsyncTask<RoomUser, Void, Void> {

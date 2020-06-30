@@ -13,8 +13,11 @@ import android.widget.ImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.luceafarul.quizfitter.R;
 import com.luceafarul.quizfitter.others.SharedPrefsFiles;
+import com.luceafarul.quizfitter.view.food.FoodHomeFragment;
+import com.luceafarul.quizfitter.view.gamification.QueueFragment;
 import com.luceafarul.quizfitter.view.gamification.QuizFragment;
 import com.luceafarul.quizfitter.view.tracking.AddBodyDataFragment;
+import com.luceafarul.quizfitter.view.training.ExercisesListFragment;
 
 import java.util.Calendar;
 
@@ -27,9 +30,9 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class HomeFragment extends Fragment {
 
-    private ImageView ivPlay;
-    private ImageView ivGym;
-    private ImageView ivFood;
+    private View cardQuiz;
+    private View cardTraining;
+    private View cardFood;
     private View view;
     private SharedPrefsFiles sharedPrefs;
 
@@ -44,9 +47,9 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        ivPlay = view.findViewById(R.id.ivPlay);
-        ivFood = view.findViewById(R.id.ivFoodWP);
-        ivGym = view.findViewById(R.id.ivGymWP);
+        cardQuiz = view.findViewById(R.id.cardQuiz);
+        cardFood = view.findViewById(R.id.cardFood);
+        cardTraining = view.findViewById(R.id.cardTraining);
 
         sharedPrefs = SharedPrefsFiles.getInstance(getActivity());
         Calendar calendar = Calendar.getInstance();
@@ -60,16 +63,16 @@ public class HomeFragment extends Fragment {
             notifyUpdateData();
         }
 
-        ivPlay.setOnClickListener(v -> changeFragment(new QuizFragment()));
-        ivGym.setOnClickListener(v -> changeFragment(new ExercisesFragment()));
-        ivFood.setOnClickListener(v -> changeFragment(new WIPFragment()));
+        cardQuiz.setOnClickListener(v -> changeFragment(new QueueFragment()));
+        cardTraining.setOnClickListener(v -> changeFragment(new ExercisesListFragment()));
+        cardFood.setOnClickListener(v -> changeFragment(new FoodHomeFragment()));
 
         return view;
     }
 
     private void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

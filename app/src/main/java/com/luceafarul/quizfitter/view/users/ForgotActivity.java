@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class ForgotActivity extends AppCompatActivity {
 
     EditText etEmail;
     Button btSend;
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class ForgotActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.etEmail);
         btSend = findViewById(R.id.btnSend);
+        btnBack = findViewById(R.id.btnBack);
 
         btSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +74,13 @@ public class ForgotActivity extends AppCompatActivity {
                     sbView.setBackgroundColor(ContextCompat.getColor(ForgotActivity.this, R.color.colorDanger));
                     snackbar.show();
                 }
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ForgotActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -3,27 +3,27 @@ package com.luceafarul.quizfitter.repositories.room;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.luceafarul.quizfitter.models.Answer;
-import com.luceafarul.quizfitter.models.Food;
-import com.luceafarul.quizfitter.models.Question;
-import com.luceafarul.quizfitter.models.RoomUser;
+import com.luceafarul.quizfitter.model.Answer;
+import com.luceafarul.quizfitter.model.Day;
+import com.luceafarul.quizfitter.model.Food;
+import com.luceafarul.quizfitter.model.Meal;
+import com.luceafarul.quizfitter.model.Question;
+import com.luceafarul.quizfitter.model.RoomUser;
 import com.luceafarul.quizfitter.repositories.room.daos.AnswerDao;
+import com.luceafarul.quizfitter.repositories.room.daos.DayDao;
 import com.luceafarul.quizfitter.repositories.room.daos.FoodDao;
+import com.luceafarul.quizfitter.repositories.room.daos.MealDao;
 import com.luceafarul.quizfitter.repositories.room.daos.QuestionDao;
 import com.luceafarul.quizfitter.repositories.room.daos.UserDao;
 
-import java.sql.RowId;
 import java.util.concurrent.Executors;
 
-import javax.security.auth.callback.Callback;
-
-@Database(entities = {Food.class, RoomUser.class, Question.class, Answer.class}, version = 1, exportSchema = false)
+@Database(entities = {Food.class, RoomUser.class, Question.class, Answer.class, Meal.class, Day.class}, version = 1, exportSchema = false)
 public abstract class DataBase extends RoomDatabase {
 
     private static DataBase INSTANCE;
@@ -35,6 +35,10 @@ public abstract class DataBase extends RoomDatabase {
     public abstract AnswerDao answersDao();
 
     public abstract QuestionDao questionsDao();
+
+    public abstract MealDao mealsDao();
+
+    public abstract DayDao daysDao();
 
     public synchronized static DataBase getInstance(Context context) {
         if (INSTANCE == null) {
@@ -55,6 +59,9 @@ public abstract class DataBase extends RoomDatabase {
                             public void run() {
                                 getInstance(context).questionsDao().insertAll(Question.populateData());
                                 getInstance(context).answersDao().insertAll(Answer.populateData());
+                                getInstance(context).daysDao().insertAll(Day.populateData());
+                                getInstance(context).mealsDao().insertAll(Meal.populateData());
+                                getInstance(context).foodsDAO().insertAll(Food.populateData());
                             }
                         });
                     }

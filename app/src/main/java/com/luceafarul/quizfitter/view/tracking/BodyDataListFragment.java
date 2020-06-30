@@ -21,8 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.UserDetails;
-import com.luceafarul.quizfitter.others.BodyDataAdapter;
+import com.luceafarul.quizfitter.model.UserDetails;
+import com.luceafarul.quizfitter.adapters.BodyDataAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +99,7 @@ public class BodyDataListFragment extends Fragment {
 
     public void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

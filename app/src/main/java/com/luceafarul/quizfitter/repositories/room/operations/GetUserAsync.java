@@ -3,11 +3,8 @@ package com.luceafarul.quizfitter.repositories.room.operations;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.luceafarul.quizfitter.models.Food;
-import com.luceafarul.quizfitter.models.RoomUser;
+import com.luceafarul.quizfitter.model.RoomUser;
 import com.luceafarul.quizfitter.repositories.room.DataBase;
-
-import java.util.List;
 
 public class GetUserAsync extends AsyncTask<RoomUser, Void, RoomUser> {
 

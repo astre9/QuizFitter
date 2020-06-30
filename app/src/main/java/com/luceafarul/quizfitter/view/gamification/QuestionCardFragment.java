@@ -1,6 +1,5 @@
 package com.luceafarul.quizfitter.view.gamification;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -27,12 +26,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.Answer;
-import com.luceafarul.quizfitter.models.Match;
-import com.luceafarul.quizfitter.models.Question;
+import com.luceafarul.quizfitter.model.Answer;
+import com.luceafarul.quizfitter.model.Match;
+import com.luceafarul.quizfitter.model.Question;
 import com.luceafarul.quizfitter.repositories.room.operations.GetAnswersAsync;
 import com.luceafarul.quizfitter.repositories.room.operations.GetQuestionAsync;
-import com.luceafarul.quizfitter.view.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -253,28 +251,50 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
                     matchesRef.updateChildren(matchScoreUpdates);
                 }
                 if (questionNumber == 5) {
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
-                    startActivity(intent);
-                } else {
                     FirebaseDatabase.getInstance().getReference("queues/" + match.starter).setValue(null);
-                    performTransition();
+                    Fragment quizResultsFragment = new QuizResultsFragment();
+                    match.starter = ((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer1)).getText().toString();
+                    match.opponent = ((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer2)).getText().toString();
+                    match.starterScore = Integer.valueOf(((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer2)).getText().toString());
+                    match.opponentScore = Integer.valueOf(((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer2)).getText().toString());
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("match", match);
+                    quizResultsFragment.setArguments(bundle);
+                    performTransition(quizResultsFragment, bundle);
+                } else {
+                    performTransition(null, null);
                 }
             }
         }.start();
     }
 
-    private void performTransition() {
+    private void performTransition(Fragment destinationFragment, Bundle bundle) {
         FragmentManager fragmentManager = getParentFragmentManager();
-        Fragment currentQuestionFragment = fragmentManager.findFragmentById(R.id.fragment_container);
-        Fragment nextQuestionFragment = new QuestionCardFragment();
+        Fragment currentQuestionFragment = destinationFragment != null ? getParentFragment() : fragmentManager.findFragmentById(R.id.fragment_container);
+        Fragment nextQuestionFragment = destinationFragment != null ? destinationFragment : new QuestionCardFragment();
 
-        Bundle args = new Bundle();
-        questionNumber++;
-        args.putInt("question", questionNumber);
-        args.putString("matchPath", matchPath);
-        args.putString("player1", idPlayer1);
-        args.putString("player2", idPlayer2);
-        nextQuestionFragment.setArguments(args);
+        if (bundle == null) {
+            Bundle args = new Bundle();
+            questionNumber++;
+            args.putInt("question", questionNumber);
+            args.putString("matchPath", matchPath);
+            args.putString("player1", idPlayer1);
+            args.putString("player2", idPlayer2);
+            nextQuestionFragment.setArguments(args);
+        } else {
+            String player1 = ((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer1)).getText().toString();
+            String player2 = ((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer2)).getText().toString();
+            String scorePlayer1 = ((TextView) getParentFragment().getView().findViewById(R.id.tvScore1)).getText().toString();
+            String scorePlayer2 = ((TextView) getParentFragment().getView().findViewById(R.id.tvScore2)).getText().toString();
+            bundle.putString("player1", player1);
+            bundle.putString("player2", player2);
+            bundle.putInt("playerScore1", Integer.parseInt(scorePlayer1));
+            bundle.putInt("playerScore2", Integer.parseInt(scorePlayer2));
+
+            nextQuestionFragment.setArguments(bundle);
+        }
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // 1. Exit for Previous Fragment

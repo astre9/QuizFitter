@@ -17,12 +17,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.Food;
-import com.luceafarul.quizfitter.models.RoomUser;
-import com.luceafarul.quizfitter.others.FoodAdapter;
+import com.luceafarul.quizfitter.model.Food;
+import com.luceafarul.quizfitter.adapters.FoodAdapter;
 import com.luceafarul.quizfitter.others.SharedPrefsFiles;
-import com.luceafarul.quizfitter.repositories.room.operations.GetFoodAsync;
+import com.luceafarul.quizfitter.repositories.room.operations.food.GetFoodAsync;
+import com.luceafarul.quizfitter.view.food.FoodFragment;
 
 import java.util.List;
 
@@ -52,8 +53,8 @@ public class FoodListFragment extends Fragment {
         fab = view.findViewById(R.id.fab);
         SharedPrefsFiles sharedPrefs = SharedPrefsFiles.getInstance(getContext());
 
-        RoomUser loggedUser = new RoomUser();
-        loggedUser.uid = Integer.parseInt(sharedPrefs.getString("id"));
+        String loggedUser = FirebaseAuth.getInstance().getUid();
+
         new GetFoodAsync(getContext()) {
             @Override
             protected void onPostExecute(List<Food> foods) {
@@ -63,9 +64,9 @@ public class FoodListFragment extends Fragment {
                 lvFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        int selectedFoodId = foodAdapter.getFoodList().get(position).fid;
-                        sharedPrefs.saveString("selectedFoodId", String.valueOf(selectedFoodId));
-                        changeFragment(new FoodFragment());
+//                        int selectedFoodId = foodAdapter.getFoodList().get(position).fid;
+//                        sharedPrefs.saveString("selectedFoodId", String.valueOf(selectedFoodId));
+//                        changeFragment(new FoodFragment());
                     }
                 });
             }
@@ -82,7 +83,7 @@ public class FoodListFragment extends Fragment {
 
     private void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.replace(R.id.fragmentContainer_fragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

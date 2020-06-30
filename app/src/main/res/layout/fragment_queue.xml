@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryVariant"
+    android:background="@color/colorBackground"
     tools:context="com.luceafarul.quizfitter.view.gamification.QueueFragment">
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:gravity="top"
             android:lineHeight="35sp"
             android:text="@string/looking_for_an_opponent"
-            android:textColor="@color/colorPrimaryVariant"
+            android:textColor="@color/colorOnBackground"
             android:textSize="30sp" />
 
         <com.airbnb.lottie.LottieAnimationView

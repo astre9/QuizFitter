@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,16 +20,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.User;
-import com.luceafarul.quizfitter.models.UserDetails;
+import com.luceafarul.quizfitter.model.UserDetails;
 import com.luceafarul.quizfitter.others.SharedPrefsFiles;
 import com.luceafarul.quizfitter.view.HomeFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import androidx.core.content.ContextCompat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,9 +61,6 @@ public class AddBodyDataFragment extends Fragment {
         etWeight = view.findViewById(R.id.etWeight);
         btSave = view.findViewById(R.id.btnSave);
         btCancel = view.findViewById(R.id.btnCancel);
-
-        LinearLayout lLayout = (LinearLayout) view.findViewById(R.id.llAddData);
-        lLayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorBackground));
 
         etDate.setFocusable(false);
         etDate.setEnabled(false);
@@ -124,7 +116,7 @@ public class AddBodyDataFragment extends Fragment {
 
     private void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

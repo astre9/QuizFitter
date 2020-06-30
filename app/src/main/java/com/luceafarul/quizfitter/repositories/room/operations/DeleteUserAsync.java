@@ -3,10 +3,7 @@ package com.luceafarul.quizfitter.repositories.room.operations;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import androidx.room.Room;
-
-import com.luceafarul.quizfitter.models.Food;
-import com.luceafarul.quizfitter.models.RoomUser;
+import com.luceafarul.quizfitter.model.RoomUser;
 import com.luceafarul.quizfitter.repositories.room.DataBase;
 
 public class DeleteUserAsync extends AsyncTask<RoomUser, Void, Void> {

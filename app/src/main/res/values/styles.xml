@@ -47,7 +47,7 @@
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textColorHint">@color/colorPrimaryLight</item>
+        <item name="android:textColorHint">@color/colorPrimaryDark</item>
     </style>
 
     <style name="DefaultTextInputEditText">
@@ -55,36 +55,87 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
+    <style name="SearchTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+
     <style name="DefaultMaterialButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/colorPrimaryVariant</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
+        <item name="android:width">220dp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="LoginMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:width">256dp</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="SuccessMaterialButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">@color/colorSuccess</item>
-        <item name="android:textColor">@color/colorPrimaryVariant</item>
+    <style name="RegisterMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/colorSuccess</item>
         <item name="android:width">256dp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Widget.App.Button.TextButton.IconOnly" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="ContentRoundedTopCard" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">40dp</item>
+        <item name="cornerSizeTopLeft">40dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="CustomRoundedBottomCardCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ContentRoundedBottomCard</item>
+    </style>
+
+    <style name="CustomRoundedTopCardCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ContentRoundedTopCard</item>
+    </style>
+
+    <style name="ContentRoundedBottomCard" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">40dp</item>
+        <item name="cornerSizeBottomLeft">40dp</item>
+    </style>
+
+    <style name="SuccessMaterialButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/colorSuccess</item>
+        <item name="android:width">220dp</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="FeedbackMaterialButton" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@color/colorUnique</item>
-        <item name="android:textColor">@color/colorPrimaryVariant</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
         <item name="android:width">256dp</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="CancelMaterialButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">@color/colorPrimaryVariant</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:width">256dp</item>
+        <item name="android:backgroundTint">@color/colorBackground</item>
+        <item name="android:textColor">@color/colorOnBackground</item>
+        <item name="android:width">220dp</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="ResultsAppbarTheme" parent="@style/Widget.MaterialComponents.AppBarLayout.Primary">
         <item name="colorControlNormal">@color/colorPrimaryVariant</item>
-        <item name="titleTextColor">@color/colorPrimaryVariant</item>
+        <item name="titleTextColor">@color/colorOnPrimary</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.Exercise;
+import com.luceafarul.quizfitter.model.Exercise;
 import com.luceafarul.quizfitter.repositories.api.JSONRead;
 
 import java.util.List;

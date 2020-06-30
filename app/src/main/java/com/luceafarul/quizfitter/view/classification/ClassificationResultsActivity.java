@@ -7,14 +7,9 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.Exercise;
-import com.luceafarul.quizfitter.others.TabAdapter;
-import com.luceafarul.quizfitter.repositories.api.JSONRead;
+import com.luceafarul.quizfitter.adapters.TabAdapter;
 import com.luceafarul.quizfitter.view.classification.tabfragments.FeedbackTabFragment;
 import com.luceafarul.quizfitter.view.classification.tabfragments.ResultsTabFragment;
-import com.luceafarul.quizfitter.view.classification.tabfragments.TabFragment;
-
-import java.util.List;
 
 public class ClassificationResultsActivity extends AppCompatActivity {
     private TabAdapter adapter;

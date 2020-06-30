@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorSecondaryVariant"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background_forgot">
 
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:layout_weight="2"
+        app:shapeAppearanceOverlay="@style/ContentRoundedBottomCard" />
 
     <LinearLayout
         android:id="@+id/llLoading"
@@ -31,7 +32,7 @@
             android:gravity="top"
             android:lineHeight="35sp"
             android:text="@string/finding_your_exercise"
-            android:textColor="@color/colorPrimaryVariant"
+            android:textColor="@color/colorOnPrimary"
             android:textSize="30sp" />
 
         <com.airbnb.lottie.LottieAnimationView
@@ -54,29 +55,39 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/llButtons"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="40dp"
+        android:paddingVertical="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnClassify"
-            style="@style/DefaultMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/classify" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnHome"
-            style="@style/CancelMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/cancel" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClassify"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/classify" />
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHome"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/cancel" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

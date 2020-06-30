@@ -1,162 +1,162 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.luceafarul.quizfitter.view.tracking.FoodFragment">
+    tools:context="com.luceafarul.quizfitter.view.food.FoodFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <ImageView
+        android:id="@+id/ivMeal"
+        android:src="@drawable/not_found_food"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        android:scaleType="center" />
+
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2196F3"
-        android:gravity="center|top"
-        android:orientation="vertical">
+        android:layout_marginTop="180dp"
+        app:cardElevation="4dp"
+        app:shapeAppearanceOverlay="@style/ContentRoundedTopCard">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="136dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/food_name"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/etFoodName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/background_light"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/new_meal"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="136dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="8dp"
-            android:text="Calories"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etCalories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/background_light"
-            android:ems="10"
-            android:inputType="number"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnDeleteMeal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/colorSurface"
+                android:visibility="gone"
+                app:fabSize="mini"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_delete_black_24dp"
+                app:tint="@color/colorDanger" />
 
-        <TextView
-            android:id="@+id/textview2"
-            android:layout_width="136dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/protein"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/colorSurface"
+                app:fabSize="mini"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_image_black_24dp"
+                app:tint="#2A8288" />
 
-        <EditText
-            android:id="@+id/etProtein"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/background_light"
-            android:ems="10"
-            android:inputType="number"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:hint="@string/meal_name"
+                android:inputType="none"
+                android:clickable="false"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName">
 
-        <TextView
-            android:id="@+id/textview3"
-            android:layout_width="136dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/carbohydrates"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+                <AutoCompleteTextView
+                    android:id="@+id/atvMealName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etCarb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/background_light"
-            android:ems="10"
-            android:inputType="number"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <Button
+                android:id="@+id/btnSaveMeal"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/colorSuccess"
+                android:text="@string/save"
+                android:textColor="@color/colorSurface"
+                android:visibility="gone"
+                app:icon="@drawable/ic_save_black_24dp"
+                app:iconTint="@color/colorSurface"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilName" />
 
-        <TextView
-            android:id="@+id/textview4"
-            android:layout_width="136dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/fat"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <FrameLayout
+                android:id="@+id/cardFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
-        <EditText
-            android:id="@+id/etFat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/background_light"
-            android:ems="10"
-            android:inputType="number"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF" />
+            <LinearLayout
+                android:id="@+id/llNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="325dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnAddFood"
-            android:layout_width="169dp"
-            android:layout_height="41dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/buttonshape"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="@string/add"
-            android:textColor="#FEFFFC"
-            android:textSize="15sp" />
+                <Button
+                    android:id="@+id/btnPrevious"
+                    style="@style/Widget.App.Button.TextButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="155dp"
+                    app:icon="@drawable/ic_navigate_before_black_24dp"
+                    app:iconTint="@color/colorOnSurface" />
 
-        <Button
-            android:id="@+id/btnChart"
-            android:layout_width="169dp"
-            android:layout_height="41dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/buttonshape"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="@string/see_chart"
-            android:textColor="#FEFFFC"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/btnTest"
-            android:layout_width="169dp"
-            android:layout_height="41dp"
-            android:layout_gravity="bottom|start"
-            android:layout_marginTop="64dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/buttonshape"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="@string/today_s_list"
-            android:textColor="#FEFFFC"
-            android:textSize="15sp" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/btnNext"
+                    style="@style/Widget.App.Button.TextButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="155dp"
+                    app:icon="@drawable/ic_navigate_next_black_24dp"
+                    app:iconTint="@color/colorOnSurface" />
 
 
-</FrameLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

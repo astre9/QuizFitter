@@ -1,14 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.luceafarul.quizfitter.view.gamification.ResultsFragment">
+    android:background="@color/colorSecondaryVariant"
+    tools:context="com.luceafarul.quizfitter.view.gamification.QuizResultsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/quizCard"
@@ -16,91 +18,160 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:minHeight="200dp">
+            android:minHeight="400dp">
 
             <!-- Card contents. -->
-            <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/primary_text"
+                    android:id="@+id/tvResult"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
                     android:text="@string/results"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-                    app:layout_constraintBottom_toTopOf="@+id/sub_text"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="50sp"
+                    app:layout_constraintBottom_toTopOf="@+id/tvScore"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
-                    android:id="@+id/sub_text"
+                    android:id="@+id/tvScore"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Subtext"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="Score"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/colorSecondaryTextDefaultMaterialLight"
-                    app:layout_constraintBottom_toTopOf="@+id/supporting_text"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toTopOf="@+id/llButtons"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/primary_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvResult" />
 
-                <TextView
-                    android:id="@+id/supporting_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:lineSpacingExtra="8dp"
-                    android:text="Subtext"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-                    app:layout_constraintBottom_toTopOf="@+id/action_button_1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sub_text" />
-
-                <Button
-                    android:id="@+id/action_button_1"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                <LinearLayout
+                    android:id="@+id/llPlayers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:minWidth="0dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:text="Home"
-                    android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/llPlayersScore"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvScore"
+                    app:layout_constraintVertical_bias="0.2">
+
+                    <TextView
+                        android:id="@+id/tvPlayer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Player 1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/tvPlayer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="100dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Player 2"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPlayersScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/llButtons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llPlayers"
+                    app:layout_constraintVertical_bias="0.01">
+
+                    <TextView
+                        android:id="@+id/tvScorePlayer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Score player 1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/tvScorePlayer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Score player 2"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llButtons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="200dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/supporting_text" />
+                    app:layout_constraintTop_toBottomOf="@id/tvScore">
 
-                <Button
-                    android:id="@+id/btnQuizAgain"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Play again"
-                    android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-                    app:layout_constraintStart_toEndOf="@+id/action_button_1"
-                    app:layout_constraintTop_toTopOf="@+id/action_button_1" />
+                    <Button
+                        android:id="@+id/btnQuizAgain"
+                        style="@style/Widget.MaterialComponents.Button.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Play again"
+                        android:textColor="@color/colorOnPrimary"
+                        app:icon="@drawable/ic_replay_black_24dp"
+                        app:iconTint="@color/colorOnPrimary" />
+
+                    <Button
+                        android:id="@+id/btnHome"
+                        style="@style/Widget.MaterialComponents.Button.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="0dp"
+                        android:text="Home"
+                        android:textColor="@color/colorOnPrimary"
+                        app:icon="@drawable/home_24px"
+                        app:iconTint="@color/colorOnPrimary" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
+
 </FrameLayout>

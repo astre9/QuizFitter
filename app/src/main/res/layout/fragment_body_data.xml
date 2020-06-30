@@ -2,71 +2,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.luceafarul.quizfitter.view.tracking.AddBodyDataFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:id="@+id/llAddData"
+    <com.google.android.material.card.MaterialCardView
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="430dp"
+        android:layout_marginHorizontal="60dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilMail"
-            style="@style/DefaultTextInputLayout"
-            android:layout_marginTop="32dp"
-            android:hint="@string/date">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDate"
-                style="@style/DefaultTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/daily_body_data"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilWeight"
-            style="@style/DefaultTextInputLayout"
-            android:layout_marginTop="32dp"
-            android:hint="@string/weight">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDate"
+                style="@style/SearchTextInputLayout"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/date">
 
-            <EditText
-                android:id="@+id/etWeight"
-                style="@style/DefaultTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilBF"
-            style="@style/DefaultTextInputLayout"
-            android:layout_marginTop="32dp"
-            android:hint="@string/bodyfat">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilWeight"
+                style="@style/SearchTextInputLayout"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/weight">
 
-            <EditText
-                android:id="@+id/etBF"
-                style="@style/DefaultTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etWeight"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnSave"
-            style="@style/DefaultMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:textColor="@color/colorPrimaryVariant" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilBF"
+                style="@style/SearchTextInputLayout"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/bodyfat">
 
-        <Button
-            android:id="@+id/btnCancel"
-            style="@style/CancelMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etBF"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/btnSave"
+                style="@style/SuccessMaterialButton"
+                app:icon="@drawable/ic_save_black_24dp"
+                app:iconTint="@color/colorSurface"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorSuccess"
+                android:text="@string/save"
+                android:textColor="@color/colorSurface" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnCancel"
+                style="@style/CancelMaterialButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/cancel" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>
+

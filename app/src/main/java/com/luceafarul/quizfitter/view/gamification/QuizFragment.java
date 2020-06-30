@@ -20,9 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.Challenge;
-import com.luceafarul.quizfitter.models.Match;
-import com.luceafarul.quizfitter.models.User;
+import com.luceafarul.quizfitter.model.Challenge;
+import com.luceafarul.quizfitter.model.User;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 

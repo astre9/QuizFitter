@@ -1,5 +1,6 @@
 package com.luceafarul.quizfitter.view;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -9,34 +10,31 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.luceafarul.quizfitter.R;
-import com.google.android.material.navigation.NavigationView;
 import com.luceafarul.quizfitter.others.SharedPrefsFiles;
 import com.luceafarul.quizfitter.view.classification.CameraActivity;
-import com.luceafarul.quizfitter.view.gamification.QueueFragment;
-import com.luceafarul.quizfitter.view.tracking.BodyDataListFragment;
-import com.luceafarul.quizfitter.view.tracking.FoodListFragment;
+import com.luceafarul.quizfitter.view.food.FoodHomeFragment;
+import com.luceafarul.quizfitter.view.gamification.QuizResultsFragment;
+import com.luceafarul.quizfitter.view.training.ExercisesListFragment;
 import com.luceafarul.quizfitter.view.users.LoginActivity;
 import com.luceafarul.quizfitter.view.users.ProfileFragment;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity {//} implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int APPLICATION_PERMISSION_CODE = 100;
+    private static final int FOOD_PERMISSION_CODE = 200;
 
     private DrawerLayout drawerLayout;
     private TextView tvNavUser;
@@ -57,86 +55,55 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (user != null) {
             email = user.getEmail();
         }
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.itHome);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.itExercise: {
+                        changeFragment(new ExercisesListFragment());
+                        break;
+                    }
+                    case R.id.itCamera: {
+                        String[] permissions = new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA};
+                        if (checkPermissions(permissions, APPLICATION_PERMISSION_CODE)) {
+                            Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    }
+                    case R.id.itHome: {
+                        changeFragment(new HomeFragment());
+                        break;
+                    }
 
-        configNavigation();
-        changeFragment(new HomeFragment());
-    }
+                    case R.id.itFood: {
+                        String[] permissions = new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA};
+                        if (checkPermissions(permissions, FOOD_PERMISSION_CODE)) {
+                            changeFragment(new FoodHomeFragment());
+                        }
+                        break;
+                    }
 
-    private void configNavigation() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.home_drawer_layout);
-        ActionBarDrawerToggle actionBar =
-                new ActionBarDrawerToggle(
-                        this,
-                        drawerLayout,
-                        toolbar,
-                        R.string.navigation_drawer_open,
-                        R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(actionBar);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        View navHeader = navigationView.getHeaderView(0);
-        TextView tvNavUser = navHeader.findViewById(R.id.tvNavUser);
-        tvNavUser.setText("Welcome, " + email);
-        actionBar.syncState();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.nav_home: {
-                changeFragment(new HomeFragment());
-                break;
-            }
-            case R.id.nav_profile: {
-                changeFragment(new ProfileFragment());
-                break;
-            }
-            case R.id.nav_body_data: {
-                changeFragment(new BodyDataListFragment());
-                break;
-            }
-            case R.id.nav_food: {
-                sharedPrefs.saveString("selectedFoodId", "");
-                changeFragment(new FoodListFragment());
-                break;
-            }
-            case R.id.nav_play: {
-                changeFragment(new QueueFragment());
-                break;
-            }
-            case R.id.nav_gym: {
-                changeFragment(new ExercisesFragment());
-                break;
-            }
-            case R.id.nav_camera: {
-                String[] permissions = new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA};
-                if (checkPermissions(permissions, APPLICATION_PERMISSION_CODE)) {
-                    Intent intent = new Intent(this, CameraActivity.class);
-                    startActivity(intent);
+                    case R.id.itProfile: {
+                        changeFragment(new ProfileFragment());
+                        break;
+                    }
                 }
-
-                break;
+                return true;
             }
-            case R.id.nav_logout: {
-                Logout();
-                break;
-            }
-//            case R.id.nav_bmi: {
-//                changeFragment(new WIPFragment());
-//                break;
-//            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+        });
+        changeFragment(new HomeFragment());
     }
 
     public void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.replace(R.id.fragmentContainer, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -170,6 +137,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 Toast.makeText(this, "Permissions denied, can't access exercise recognition!", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == QuizResultsFragment.QUIZ_REQUEST_CODE && resultCode == RESULT_OK) {
+            changeFragment(new QuizResultsFragment());
         }
     }
 }

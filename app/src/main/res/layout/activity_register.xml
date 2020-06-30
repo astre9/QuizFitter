@@ -4,15 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fq_register"
+    android:background="@drawable/register"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".view.users.RegisterActivity">
 
+    <Button
+        android:id="@+id/btnBack"
+        style="@style/LoginMaterialButton"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="70dp"
+        android:text="@string/sign_in" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/new_account"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="15sp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilName"
-        style="@style/DefaultTextInputLayout"
-        android:layout_marginTop="32dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:hint="@string/name">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -24,7 +46,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMail"
-        style="@style/DefaultTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:hint="@string/e_mail">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -36,7 +61,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilNewPassword"
-        style="@style/DefaultTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:hint="@string/enter_password"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/colorAccent">
@@ -50,7 +78,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPasswordCheck"
-        style="@style/DefaultTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:hint="@string/check_password"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/colorAccent">
@@ -62,20 +93,13 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btnRegister"
-        style="@style/DefaultMaterialButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create"
-        android:textColor="@color/colorPrimaryVariant" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnBack"
-        style="@style/CancelMaterialButton"
+        style="@style/RegisterMaterialButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="@string/back" />
+        android:text="@string/create" />
+
 
 </LinearLayout>

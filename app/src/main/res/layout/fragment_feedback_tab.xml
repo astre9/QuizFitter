@@ -20,7 +20,7 @@
             android:fontFamily="@font/roboto_light"
             android:text="@string/hello"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/colorPrimaryVariant"
+            android:textColor="@color/colorOnPrimary"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_light"
             android:text="@string/feedback"
-            android:textColor="@color/colorPrimaryVariant"
+            android:textColor="@color/colorOnPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"

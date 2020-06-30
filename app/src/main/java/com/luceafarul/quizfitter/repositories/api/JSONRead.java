@@ -3,7 +3,7 @@ package com.luceafarul.quizfitter.repositories.api;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.luceafarul.quizfitter.models.Exercise;
+import com.luceafarul.quizfitter.model.Exercise;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -18,7 +18,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.User;
+import com.luceafarul.quizfitter.model.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

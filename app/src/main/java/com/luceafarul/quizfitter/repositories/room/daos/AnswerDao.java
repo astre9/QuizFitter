@@ -5,9 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.luceafarul.quizfitter.models.Answer;
-import com.luceafarul.quizfitter.models.Food;
-import com.luceafarul.quizfitter.models.Question;
+import com.luceafarul.quizfitter.model.Answer;
 
 import java.util.List;
 

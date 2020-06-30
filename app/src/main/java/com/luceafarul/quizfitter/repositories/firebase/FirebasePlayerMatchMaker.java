@@ -13,8 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
-import com.luceafarul.quizfitter.models.Challenge;
-import com.luceafarul.quizfitter.models.Match;
+import com.luceafarul.quizfitter.model.Challenge;
+import com.luceafarul.quizfitter.model.Match;
 
 public class FirebasePlayerMatchMaker {
 

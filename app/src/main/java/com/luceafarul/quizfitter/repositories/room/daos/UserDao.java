@@ -1,9 +1,6 @@
 package com.luceafarul.quizfitter.repositories.room.daos;
 
-import com.luceafarul.quizfitter.models.Food;
-import com.luceafarul.quizfitter.models.RoomUser;
-
-import java.util.List;
+import com.luceafarul.quizfitter.model.RoomUser;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

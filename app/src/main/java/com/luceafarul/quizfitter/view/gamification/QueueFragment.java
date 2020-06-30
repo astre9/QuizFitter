@@ -12,25 +12,12 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.airbnb.lottie.LottieCompositionFactory;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.luceafarul.quizfitter.R;
-import com.luceafarul.quizfitter.models.Match;
-import com.luceafarul.quizfitter.models.Question;
-import com.luceafarul.quizfitter.models.Queue;
 import com.luceafarul.quizfitter.repositories.firebase.FirebasePlayerMatchMaker;
-import com.luceafarul.quizfitter.repositories.room.DataBase;
 import com.luceafarul.quizfitter.view.HomeFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -85,7 +72,7 @@ public class QueueFragment extends Fragment {
 
     private void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragment);
+        transaction.replace(R.id.fragmentContainer_fragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

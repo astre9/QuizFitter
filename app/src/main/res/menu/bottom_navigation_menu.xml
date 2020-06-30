@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itExercise"
+        android:enabled="true"
+        android:icon="@drawable/ic_fitness_center_black_24dp"
+        android:title="@string/menu_gym" />
+    <item
+        android:id="@+id/itCamera"
+        android:enabled="true"
+        android:icon="@drawable/ic_photo_camera_black_24dp"
+        android:title="@string/menu_camera" />
+    <item
+        android:id="@+id/itHome"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/itFood"
+        android:enabled="true"
+        android:icon="@drawable/fastfood_24px"
+        android:title="@string/menu_food" />
+    <item
+        android:id="@+id/itProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="@string/menu_account" />
+</menu>
