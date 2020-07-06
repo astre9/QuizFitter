@@ -80,12 +80,12 @@ public class Day {
 
     public static Day[] populateData() {
         return new Day[]{
-                new Day("Mon, 1 June 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "lunch1"),
-                new Day("Sun, 31 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "dinner"),
-                new Day("Sat, 30 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "snach"),
-                new Day("Fri, 29 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "preworkout"),
-                new Day("Thu, 28 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "nack"),
                 new Day("Wed, 27 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "dinner2"),
+                new Day("Thu, 28 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "nack"),
+                new Day("Fri, 29 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "preworkout"),
+                new Day("Sat, 30 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "snach"),
+                new Day("Sun, 31 May 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "dinner"),
+                new Day("Mon, 1 June 2020", "tt37aNOSF2dzMiog5spucHsYcGj2", "lunch1"),
         };
     }
 }

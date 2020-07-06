@@ -14,16 +14,19 @@ import java.util.List;
 
 @Dao
 public interface DayDao {
-    @Query("SELECT * FROM Day")
+    @Query("SELECT * FROM Day ORDER BY id DESC")
     List<Day> getAll();
 
     @Query("SELECT * FROM Day WHERE id = :id LIMIT 1")
     Day getById(int id);
 
+    @Query("SELECT SUM(calories) FROM Day WHERE userId= :id")
+    int getTotalCalories(String id);
+
     @Query("SELECT * FROM Day WHERE date LIKe :date LIMIT 1")
     Day getByDate(String date);
 
-    @Query("SELECT * FROM Day ORDER BY id LIMIT 1")
+    @Query("SELECT * FROM Day ORDER BY id DESC LIMIT 1")
     Day getLastDay();
 
     @Insert

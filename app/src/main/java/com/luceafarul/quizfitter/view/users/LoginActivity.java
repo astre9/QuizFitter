@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 email = "astre999@gmail.com";
-                password = "12345678";
+                password = "123456789";
                 etEmail.setText(email);
                 etPassword.setText(password);
                 signIn();

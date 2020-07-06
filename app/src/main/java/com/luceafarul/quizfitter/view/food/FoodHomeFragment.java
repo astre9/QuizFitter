@@ -51,6 +51,7 @@ public class FoodHomeFragment extends Fragment {
     RecyclerView rvMeals;
     RecyclerView rvDays;
     EditText etDate;
+    Button btnAdd;
 
     DaysAdapter daysAdapter;
     MealsAdapter mealsAdapter;
@@ -65,6 +66,8 @@ public class FoodHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_food_home, container, false);
 
+        initViews(view);
+
         callback = new OnDaySelectedCallback() {
             @Override
             public void onDaySelected(String date) {
@@ -76,8 +79,6 @@ public class FoodHomeFragment extends Fragment {
 
         daysAdapter = new DaysAdapter(allDays, callback);
 
-        initViews(view);
-
         getToday();
         initDays();
         initMeals();
@@ -85,13 +86,16 @@ public class FoodHomeFragment extends Fragment {
 //        final FoodListViewModel viewModel = ViewModelProviders.of(this).get(FoodListViewModel.class);
 //        observeViewModel(viewModel);
 
-        Button btnAdd = view.findViewById(R.id.btnAdd);
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("type", "add");
+                if (sdf.format(Calendar.getInstance().getTime()).equals(selectedDay.getDate())) {
+                    bundle.putString("type", "add_meal");
+                    bundle.putString("date", selectedDay.getDate());
+                } else {
+                    bundle.putString("type", "add");
+                }
                 Fragment foodFragment = new FoodFragment();
                 foodFragment.setArguments(bundle);
                 changeFragment(foodFragment);
@@ -146,6 +150,7 @@ public class FoodHomeFragment extends Fragment {
         etDate = view.findViewById(R.id.etDate);
         rvMeals = view.findViewById(R.id.rvMeals);
         rvDays = view.findViewById(R.id.rvDays);
+        btnAdd = view.findViewById(R.id.btnAdd);
 
         LinearLayoutManager layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvMeals.setLayoutManager(layoutManagerHorizontal);
@@ -167,7 +172,6 @@ public class FoodHomeFragment extends Fragment {
             @Override
             protected void onPostExecute(List<Day> days) {
                 super.onPostExecute(days);
-
                 allDays = days;
                 daysAdapter = new DaysAdapter(days, callback);
                 rvDays.setAdapter(daysAdapter);
@@ -206,8 +210,11 @@ public class FoodHomeFragment extends Fragment {
             @Override
             protected void onPostExecute(Day day) {
                 super.onPostExecute(day);
-                etDate.setText(day.getDate());
                 selectedDay = day;
+//                if (sdf.format(Calendar.getInstance().getTime()).equals(day.getDate())) {
+//                    btnAdd.setVisibility(View.GONE);
+//                }
+                etDate.setText(day.getDate());
             }
         }.execute();
     }

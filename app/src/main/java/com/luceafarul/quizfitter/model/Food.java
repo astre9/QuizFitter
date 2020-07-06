@@ -24,6 +24,9 @@ public class Food implements Parcelable {
     private int fat;
     private int mealId;
 
+    public Food() {
+    }
+
     @Ignore
     public Food(String name, int quantity, int calories, int mealId) {
         this.name = name;

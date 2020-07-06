@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.luceafarul.quizfitter.R;
 import com.luceafarul.quizfitter.model.Match;
@@ -57,8 +58,7 @@ public class QuizResultsFragment extends Fragment {
         btnQuizAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QuizResultsFragment.this.getActivity(), HomeActivity.class);
-                startActivityForResult(intent, QUIZ_REQUEST_CODE);
+                changeFragment(new QueueFragment());
             }
         });
 
@@ -71,6 +71,13 @@ public class QuizResultsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void changeFragment(Fragment fragment) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void initViews(View view) {

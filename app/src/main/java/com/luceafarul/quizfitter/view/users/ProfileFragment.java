@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.luceafarul.quizfitter.R;
+import com.luceafarul.quizfitter.repositories.room.operations.food.GetTotalCaloriesAsync;
 import com.luceafarul.quizfitter.view.tracking.BodyDataListFragment;
 
 
@@ -50,7 +51,7 @@ public class ProfileFragment extends Fragment {
     TextView tvMail;
     TextInputLayout tilMail;
     TextInputLayout tilName;
-    EditText etPassword;
+    TextView tvCalories;
     Button btnSave;
     Button btnBodyData;
     MaterialButtonToggleGroup btnExpand;
@@ -76,10 +77,10 @@ public class ProfileFragment extends Fragment {
         LinearLayout llStatsValues = view.findViewById(R.id.llStatsValues);
 
         btnSave = view.findViewById(R.id.btnSave);
-        btnBodyData = view.findViewById(R.id.btnBodyData);
         btnExpand = view.findViewById(R.id.btnExpand);
         tvMail = view.findViewById(R.id.tvEmail);
         etEmail = view.findViewById(R.id.etEmail);
+        tvCalories = view.findViewById(R.id.tvCalories);
         tilMail = view.findViewById(R.id.tilMail);
         tvName = view.findViewById(R.id.tvUsername);
         etName = view.findViewById(R.id.etName);
@@ -95,6 +96,14 @@ public class ProfileFragment extends Fragment {
 
             // Check if user's email is verified
             boolean emailVerified = user.isEmailVerified();
+
+            new GetTotalCaloriesAsync(getActivity()){
+                @Override
+                protected void onPostExecute(Integer integer) {
+                    super.onPostExecute(integer);
+                    tvCalories.setText(integer.toString());
+                }
+            }.execute(user.getUid());
         }
 
         btnExpand.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
@@ -121,13 +130,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 updateProfile();
-            }
-        });
-
-        btnBodyData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeFragment(new BodyDataListFragment());
             }
         });
 

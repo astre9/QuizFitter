@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryVariant"
     tools:context="com.luceafarul.quizfitter.view.gamification.QuizResultsFragment">
 
     <LinearLayout
@@ -19,6 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
             android:minHeight="400dp">
 
             <!-- Card contents. -->
@@ -46,6 +47,7 @@
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tvScore"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

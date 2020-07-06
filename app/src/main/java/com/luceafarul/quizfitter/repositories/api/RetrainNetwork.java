@@ -21,7 +21,7 @@ public class RetrainNetwork extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... args) {
         request = new Request.Builder()
-                .url("http://192.168.56.1:8000/feedback?image_name=" + args[0] + "&category=" + args[1])
+                .url("http://192.168.100.69:8000/feedback?image_name=" + args[0] + "&category=" + args[1])
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, args[0]))
                 .build();
         try {

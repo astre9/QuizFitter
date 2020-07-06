@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.luceafarul.quizfitter.R;
 import com.luceafarul.quizfitter.others.SharedPrefsFiles;
+import com.luceafarul.quizfitter.utils.PermissionManager;
 import com.luceafarul.quizfitter.view.classification.CameraActivity;
 import com.luceafarul.quizfitter.view.food.FoodHomeFragment;
 import com.luceafarul.quizfitter.view.gamification.QuizResultsFragment;
@@ -57,6 +58,8 @@ public class HomeActivity extends AppCompatActivity {//} implements NavigationVi
         }
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.itHome);
+
+        PermissionManager permissionManager = new PermissionManager(HomeActivity.this);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -69,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {//} implements NavigationVi
                         String[] permissions = new String[]{
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.CAMERA};
-                        if (checkPermissions(permissions, APPLICATION_PERMISSION_CODE)) {
+                        if (permissionManager.checkPermissions(permissions, APPLICATION_PERMISSION_CODE)) {
                             Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
                             startActivity(intent);
                         }
@@ -84,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {//} implements NavigationVi
                         String[] permissions = new String[]{
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.CAMERA};
-                        if (checkPermissions(permissions, FOOD_PERMISSION_CODE)) {
+                        if (permissionManager.checkPermissions(permissions, FOOD_PERMISSION_CODE)) {
                             changeFragment(new FoodHomeFragment());
                         }
                         break;
@@ -113,18 +116,6 @@ public class HomeActivity extends AppCompatActivity {//} implements NavigationVi
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    public boolean checkPermissions(String[] permissions, int requestCode) {
-        boolean permissionsGranted = false;
-        if (ContextCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission(this, permissions[1]) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, permissions, requestCode);
-        } else {
-            permissionsGranted = true;
-        }
-
-        return permissionsGranted;
     }
 
     @Override

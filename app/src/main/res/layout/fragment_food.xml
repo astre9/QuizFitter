@@ -7,10 +7,9 @@
 
     <ImageView
         android:id="@+id/ivMeal"
-        android:src="@drawable/not_found_food"
         android:layout_width="match_parent"
         android:layout_height="215dp"
-        android:scaleType="center" />
+        android:scaleType="centerCrop"/>
 
 
     <com.google.android.material.card.MaterialCardView
@@ -79,11 +78,11 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                android:hint="@string/meal_name"
-                android:inputType="none"
                 android:clickable="false"
                 android:focusable="true"
                 android:focusableInTouchMode="false"
+                android:hint="@string/meal_name"
+                android:inputType="none"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,49 +110,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilName" />
 
-            <FrameLayout
-                android:id="@+id/cardFragmentContainer"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFoods"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_height="400dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDate" />
 
-            <LinearLayout
-                android:id="@+id/llNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="325dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <Button
-                    android:id="@+id/btnPrevious"
-                    style="@style/Widget.App.Button.TextButton.IconOnly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="155dp"
-                    app:icon="@drawable/ic_navigate_before_black_24dp"
-                    app:iconTint="@color/colorOnSurface" />
-
-                <Button
-                    android:id="@+id/btnNext"
-                    style="@style/Widget.App.Button.TextButton.IconOnly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="155dp"
-                    app:icon="@drawable/ic_navigate_next_black_24dp"
-                    app:iconTint="@color/colorOnSurface" />
-
-
-            </LinearLayout>
+            <!--            <FrameLayout-->
+            <!--                android:id="@+id/cardFragmentContainer"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="2dp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toStartOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/tvDate" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,7 @@
 package com.luceafarul.quizfitter.view;
 
 
+import android.Manifest;
 import android.os.Bundle;
 
 
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.luceafarul.quizfitter.R;
 import com.luceafarul.quizfitter.others.SharedPrefsFiles;
+import com.luceafarul.quizfitter.utils.PermissionManager;
 import com.luceafarul.quizfitter.view.food.FoodHomeFragment;
 import com.luceafarul.quizfitter.view.gamification.QueueFragment;
 import com.luceafarul.quizfitter.view.gamification.QuizFragment;
@@ -29,6 +31,8 @@ import androidx.fragment.app.FragmentTransaction;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
+
+    private static final int FOOD_PERMISSION_CODE = 200;
 
     private View cardQuiz;
     private View cardTraining;
@@ -60,12 +64,22 @@ public class HomeFragment extends Fragment {
             if (lastDay != currentDay)
                 sharedPrefs.saveString("UpdatedTodayData", "no");
             sharedPrefs.saveInteger("day", currentDay);
-            notifyUpdateData();
+//            notifyUpdateData();
         }
 
         cardQuiz.setOnClickListener(v -> changeFragment(new QueueFragment()));
         cardTraining.setOnClickListener(v -> changeFragment(new ExercisesListFragment()));
-        cardFood.setOnClickListener(v -> changeFragment(new FoodHomeFragment()));
+        cardFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] permissions = new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA};
+                if (new PermissionManager(getActivity()).checkPermissions(permissions, FOOD_PERMISSION_CODE)) {
+                    changeFragment(new FoodHomeFragment());
+                }
+            }
+        });
 
         return view;
     }

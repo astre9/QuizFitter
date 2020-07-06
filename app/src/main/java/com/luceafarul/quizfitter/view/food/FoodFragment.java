@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.os.Handler;
@@ -35,6 +37,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.luceafarul.quizfitter.R;
+import com.luceafarul.quizfitter.adapters.FoodAdapter;
+import com.luceafarul.quizfitter.adapters.FoodsAdapter;
 import com.luceafarul.quizfitter.model.Day;
 import com.luceafarul.quizfitter.model.Food;
 import com.luceafarul.quizfitter.model.Meal;
@@ -42,6 +46,9 @@ import com.luceafarul.quizfitter.repositories.room.DataBase;
 import com.luceafarul.quizfitter.repositories.room.operations.meal.UpdateMealAsync;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,8 +62,6 @@ public class FoodFragment extends Fragment {
     TextView tvName;
     TextView tvDate;
     Button btnSaveMeal;
-    Button btnNext;
-    Button btnPrevious;
     FloatingActionButton btnImage;
     ImageView ivMeal;
     TextInputLayout tilName;
@@ -83,8 +88,6 @@ public class FoodFragment extends Fragment {
         tilName = view.findViewById(R.id.tilName);
         atvMealName = view.findViewById(R.id.atvMealName);
         btnSaveMeal = view.findViewById(R.id.btnSaveMeal);
-        btnNext = view.findViewById(R.id.btnNext);
-        btnPrevious = view.findViewById(R.id.btnPrevious);
         btnImage = view.findViewById(R.id.btnImage);
         ivMeal = view.findViewById(R.id.ivMeal);
 
@@ -97,6 +100,8 @@ public class FoodFragment extends Fragment {
         if (meal != null) {
             if (meal.getImageName() != null) {
                 setImageBitmap();
+            } else {
+                ivMeal.setBackground(getActivity().getDrawable(R.drawable.not_found_food));
             }
 
             final Handler handler = new Handler();
@@ -106,6 +111,7 @@ public class FoodFragment extends Fragment {
                     DataBase dataBase = DataBase.getInstance(getActivity());
 
                     foodList = dataBase.foodsDAO().getAllByMeal(meal.getId());
+                    foodList.add(new Food());
                     day = dataBase.daysDao().getById(meal.getDayId());
 
                     handler.post(new Runnable() {
@@ -119,25 +125,6 @@ public class FoodFragment extends Fragment {
         } else {
             initTypeCases(day, meal, type, view);
         }
-
-        checkNavigationButtons();
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedFoodIndex++;
-                checkNavigationButtons();
-                goToNewFoodCard(meal.getId());
-            }
-        });
-        btnPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedFoodIndex--;
-                checkNavigationButtons();
-                goToNewFoodCard(meal.getId());
-            }
-        });
 
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,11 +149,19 @@ public class FoodFragment extends Fragment {
 
     private void setImageBitmap() {
         String filePath = Environment.getExternalStorageDirectory() + "/QFMeals/" + meal.getImageName();
-        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-        BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
-        ivMeal.setBackground(bitmapDrawable);
-        ivMeal.setRotation(90);
-        ivMeal.setScaleType(ImageView.ScaleType.CENTER);
+        BitmapDrawable bitmapDrawable;
+        Bitmap bitmap;
+
+        if (!new File(filePath).exists()) {
+            final int imageId = getResources().getIdentifier(meal.getImageName(), "drawable", getActivity().getPackageName());
+            bitmap = BitmapFactory.decodeResource(getResources(), imageId);
+//            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+        } else {
+            bitmap = BitmapFactory.decodeFile(filePath);
+//            bitmapDrawable = new BitmapDrawable(bitmap);
+        }
+        ivMeal.setImageBitmap(bitmap);
+//        ivMeal.setBackground(bitmapDrawable);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -189,67 +184,44 @@ public class FoodFragment extends Fragment {
         }
     }
 
-    private void checkNavigationButtons() {
-        btnPrevious.setVisibility(View.VISIBLE);
-        btnNext.setVisibility(View.VISIBLE);
-        if (foodList != null) {
-            if (selectedFoodIndex == foodList.size()) {
-                btnNext.setVisibility(View.GONE);
-            }
-            if (selectedFoodIndex == 0) {
-                btnPrevious.setVisibility(View.GONE);
-            }
-        } else {
-            btnPrevious.setVisibility(View.GONE);
-            btnNext.setVisibility(View.GONE);
-        }
-
-    }
-
-    private void goToNewFoodCard(int mealId) {
-        FoodCardFragment foodCardFragment = new FoodCardFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("food", foodList.get(selectedFoodIndex));
-        bundle.putInt("mealId", mealId);
-        foodCardFragment.setArguments(bundle);
-        changeFragment(foodCardFragment, R.id.cardFragmentContainer);
-    }
-
     private void initTypeCases(Day day, Meal meal, String type, View view) {
-
-        if (type.equals("add")) {
+        if (type.equals("add") || type.equals("add_meal")) {
             tilName.setVisibility(View.VISIBLE);
             btnSaveMeal.setVisibility(View.VISIBLE);
             btnImage.setVisibility(View.GONE);
-            tvDate.setText(sdf.format(new Date()));
+            String mealDate = sdf.format(new Date());
+            if (type.equals("add_meal")) {
+                mealDate = getArguments().getString("date");
+            }
+            tvDate.setText(mealDate);
+
             String[] mealNames = {"Breakfast", "Brunch", "Preworkout", "Lunch", "Snack", "Dinner"};
             ArrayAdapter<String> mealNameAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, mealNames);
             atvMealName.setAdapter(mealNameAdapter);
 
-            LinearLayout llNavigation = view.findViewById(R.id.llNavigation);
-            llNavigation.setVisibility(View.GONE);
             btnSaveMeal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new Thread(new Runnable() {
-
                         @Override
                         public void run() {
                             try {
                                 DataBase dataBase = DataBase.getInstance(getActivity());
 
                                 Day day = new Day(tvDate.getText().toString(), FirebaseAuth.getInstance().getUid());
-                                day.setComment("This is one hell of a hard diet...");
-                                int newDayId = (int) dataBase.daysDao().insert(day);
+//                                day.setComment("This is one hell of a hard diet...");
+                                int dayId;
+                                if (type.equals("add_meal")) {
+                                    dayId = dataBase.daysDao().getByDate(getArguments().getString("date")).getId();
+                                } else {
+                                    dayId = (int) dataBase.daysDao().insert(day);
+                                }
 
-                                Meal meal = new Meal(atvMealName.getText().toString(), newDayId);
+                                Meal meal = new Meal(atvMealName.getText().toString(), dayId);
                                 int newMealId = (int) dataBase.mealsDao().insertMeal(meal);
-
-                                Fragment foodCardFragment = new FoodCardFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("mealId", newMealId);
-                                foodCardFragment.setArguments(bundle);
-                                changeFragment(foodCardFragment, R.id.cardFragmentContainer);
+                                tilName.setVisibility(View.GONE);
+                                btnSaveMeal.setVisibility(View.GONE);
+                                showFoodsList(view, newMealId);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -260,12 +232,7 @@ public class FoodFragment extends Fragment {
         } else if (type.equals("edit_meal")) {
             tvName.setText(meal.getName());
             tvDate.setText(day.getDate());
-            FoodCardFragment foodCardFragment = new FoodCardFragment();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("food", foodList.get(selectedFoodIndex));
-            bundle.putInt("mealId", meal.getId());
-            foodCardFragment.setArguments(bundle);
-            changeFragment(foodCardFragment, R.id.cardFragmentContainer);
+            showFoodsList(view, meal.getId());
         }
         if (day != null && meal != null) {
             tvName.setText(meal.getName());
@@ -273,10 +240,12 @@ public class FoodFragment extends Fragment {
         }
     }
 
-    private void changeFragment(Fragment fragment, int containerId) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(containerId, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    private void showFoodsList(View view, int mealId) {
+        FoodsAdapter foodAdapter = new FoodsAdapter(foodList, getActivity().getSupportFragmentManager(), mealId);
+        RecyclerView rvFoods = view.findViewById(R.id.rvFoods);
+        LinearLayoutManager layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        rvFoods.setLayoutManager(layoutManagerHorizontal);
+        rvFoods.setVisibility(View.VISIBLE);
+        rvFoods.setAdapter(foodAdapter);
     }
 }

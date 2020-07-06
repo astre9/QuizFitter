@@ -162,10 +162,10 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
         for (int i = 0; i < answers.size(); i++) {
             if (answers.get(i).isCorrect()) {
                 answerButtons[i].setBackgroundColor(getResources().getColor(R.color.colorSuccess));
-                answerButtons[i].setTextColor(getResources().getColor(R.color.colorPrimaryVariant));
+                answerButtons[i].setTextColor(getResources().getColor(R.color.colorBackground));
             } else {
                 answerButtons[i].setBackgroundColor(getResources().getColor(R.color.colorDanger));
-                answerButtons[i].setTextColor(getResources().getColor(R.color.colorPrimaryVariant));
+                answerButtons[i].setTextColor(getResources().getColor(R.color.colorBackground));
             }
         }
         if (isCorrectAnswer) {
@@ -255,8 +255,8 @@ public class QuestionCardFragment extends Fragment implements View.OnClickListen
                     Fragment quizResultsFragment = new QuizResultsFragment();
                     match.starter = ((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer1)).getText().toString();
                     match.opponent = ((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer2)).getText().toString();
-                    match.starterScore = Integer.valueOf(((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer2)).getText().toString());
-                    match.opponentScore = Integer.valueOf(((TextView) getParentFragment().getView().findViewById(R.id.tvPlayer2)).getText().toString());
+                    match.starterScore = Integer.valueOf(((TextView) getParentFragment().getView().findViewById(R.id.tvScore1)).getText().toString());
+                    match.opponentScore = Integer.valueOf(((TextView) getParentFragment().getView().findViewById(R.id.tvScore2)).getText().toString());
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("match", match);

@@ -102,5 +102,9 @@
     <string name="cardio">Cardio</string>
     <string name="recover_password">Recover password</string>
     <string name="daily_body_data">Daily body data</string>
+    <string name="expand">Expand</string>
+    <string name="default_exercises_number">16</string>
+    <string name="calories_consumed">10000</string>
+    <string name="games_won">100</string>
 
 </resources>
