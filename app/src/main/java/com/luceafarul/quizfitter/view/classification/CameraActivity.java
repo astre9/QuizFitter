@@ -52,8 +52,8 @@ public class CameraActivity extends AppCompatActivity {
     private CameraPreview mPreview;
     private String filepath;
     private String filename;
-    private static String ACCESS_KEY = "AKIA3RJZPTMN3SM6EIO6";
-    private static String SECRET_KEY = "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";
+    private static String ACCESS_KEY = "?";
+    private static String SECRET_KEY = "?";
     private TransferListener transferListener;
 
     public static Camera getCameraInstance() {
@@ -221,7 +221,7 @@ public class CameraActivity extends AppCompatActivity {
         java.util.logging.Logger.getLogger("com.amazonaws").setLevel(java.util.logging.Level.FINEST);
         CognitoCachingCredentialsProvider credentials = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
-                "eu-central-1:18147915-97d7-4d0d-a899-4c7d3ad16f1a", // Identity pool ID
+                "?", // Identity pool ID
                 Regions.EU_CENTRAL_1 // Region
         );
         AmazonS3 s3 = new AmazonS3Client(credentials);
